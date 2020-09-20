@@ -1,0 +1,44 @@
+<nav class="panel">
+    <p class="panel-heading">
+        Branches
+    </p>
+    <div class="panel-block">
+        <p class="control has-icons-left">
+            <input class="input" type="text" placeholder="Search">
+            <span class="icon is-left">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </span>
+        </p>
+    </div>
+    <!-- <p class="panel-tabs">
+      <a class="is-active">All</a>
+      <a>Public</a>
+      <a>Private</a>
+      <a>Sources</a>
+      <a>Forks</a>
+    </p> -->
+
+    <a class="panel-block is-active" *ngFor="let branch of branches">
+        <div style="width: 100%; display: flex; justify-content: space-between;">
+            <div>
+                <span class="panel-icon">
+                    <i class="fa fa-code-fork" aria-hidden="true"></i>
+                </span>
+                {{ branch.name }}
+            </div>
+            <div>
+                <i class="fa fa-eye"></i>
+            </div>
+        </div>
+
+    </a>
+    <!-- <label class="panel-block">
+        <input type="checkbox">
+        remember me
+    </label> -->
+    <div class="panel-block">
+        <button class="button is-link is-outlined is-fullwidth">
+            Reset all filters
+        </button>
+    </div>
+</nav>
