@@ -1,0 +1,53 @@
+<div class="card" style="margin-top: 20px;">
+    <header class="card-header" style="display: flex; justify-content: space-between;">
+        <div>
+            <span class="card-header-title" style="font-size: 1.15rem;">
+                Pull Requests
+            </span>
+        </div>
+        <div>
+            <div class="buttons">
+                <button routerLink="/pulls/create" class="button is-success">New pull request</button>
+            </div>
+        </div>
+
+    </header>
+    <div class="card-content">
+        <div class="content" *ngIf="showEnptyMessage">
+            <div class="message-div">
+                <span>At the moment, no Pull Request was found, create a new pull request.</span>
+            </div>
+        </div>
+
+        <div class="content" *ngIf="! showEnptyMessage">
+
+            <div *ngFor="let pull of pulls" style="display: flex; justify-content: space-between;">
+                <div>
+                    <span>Author: {{ pull.user.login }}</span> <br>
+                    <span>Title: {{ pull.title }}</span> <br>
+                    <span>Description: {{ pull.body }}</span> <br>
+                    <span>State: {{ pull.state }}</span> <br>
+                </div>
+                <div *ngIf="pull.state === 'open'">
+                    <div class="buttons">
+                        <button (click)="updatePullRequest(pull)" class="button is-danger">Close pull request</button>
+                      </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+<div class="modal" [ngClass]="{'is-active': showNoticeDialog}">
+    <app-notice-dialog (modalEvent)="receiveNoticeDialogEvent($event)" [title]="titleDialog" [body]="bodyDialog">
+    </app-notice-dialog>
+</div>

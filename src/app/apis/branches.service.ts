@@ -20,4 +20,8 @@ export class BranchesService {
   getBranchDetails(branchName: string): Observable<any> {
     return this.api.get(`${this.BASE}/${branchName}`);
   }
+
+  compareTwoBranches(branchBase: string, branchHead: string): Observable<any> {
+    return this.api.get(`${this.BASE}/compare/${branchBase}/${branchHead}`);
+  }
 }

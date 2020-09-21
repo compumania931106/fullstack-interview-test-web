@@ -1,0 +1,26 @@
+<div class="modal-background" (click)="closeModalFunction()"></div>
+<div class="modal-content">
+    <div class="main-content-modal">
+        <div class="title">
+            {{ title }}
+        </div>
+
+        <div class="main-form-div">
+
+            <p>{{ body }}</p>
+
+        </div>
+
+        <div>
+            <div class="div-buttons">
+                <div class="buttons">
+                    <a class="button is-local-primary" (click)="closeModalFunction()">
+                        <strong>Aceptar</strong>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<button class="modal-close is-large" (click)="closeModalFunction()" aria-label="close"></button>

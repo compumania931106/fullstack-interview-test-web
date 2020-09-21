@@ -1,0 +1,100 @@
+<div class="card" style="margin-top: 20px;">
+    <header class="card-header">
+        <span class="card-header-title" style="font-size: 1.15rem;">
+            Create New Pull Request
+        </span>
+    </header>
+    <div class="card-content">
+        <div class="content">
+            <div class="columns">
+                <div class="column is-half">
+                    <div class="select" style="width: 100%;">
+                        <select style="width: 100%;" [(ngModel)]="baseBranch"
+                            (ngModelChange)="selectedBaseBranch($event)">
+                            <option disabled [value]="''">Select base branch</option>
+                            <option class="selected-style" *ngFor="let branch of branches" [value]="branch.name">
+                                {{ branch.name }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="column is-half">
+                    <div class="select" style="width: 100%;">
+                        <select style="width: 100%;" [(ngModel)]="headBranch" (ngModelChange)="compareBranches($event)">
+                            <option disabled [value]="''">Select origin branch</option>
+                            <option class="selected-style" *ngFor="let branch of branchesForOrigin"
+                                [value]="branch.name">
+                                {{ branch.name }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="showFormComplete">
+
+                <form [formGroup]="formNewPullRequest">
+
+                    <div class="columns">
+                        <div class="column is-full">
+                            <div class="field">
+                                <label class="label">Title</label>
+                                <div class="control">
+                                    <input class="input"
+                                        [ngClass]="{'is-danger': formNewPullRequest.get('title').hasError('required') && formNewPullRequest.get('title').touched}"
+                                        type="text" formControlName="title" placeholder="Text input">
+                                </div>
+                                <p *ngIf="formNewPullRequest.get('title').hasError('required') && formNewPullRequest.get('title').touched"
+                                    class="help is-danger">This field is required</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="columns">
+                        <div class="column is-full">
+                            <div class="field">
+                                <label class="label">Body</label>
+                                <div class="control is-danger">
+                                    <textarea class="textarea"
+                                        [ngClass]="{'is-danger-textarea': formNewPullRequest.get('body').hasError('required') && formNewPullRequest.get('body').touched}"
+                                        formControlName="body" placeholder="Textarea"></textarea>
+                                </div>
+                                <p *ngIf="formNewPullRequest.get('body').hasError('required') && formNewPullRequest.get('body').touched"
+                                    class="help is-danger">This field is required</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="columns">
+                        <div class="column is-full" style="display: flex; justify-content: flex-end;">
+                            <div class="select">
+                                <select formControlName="saveAs">
+                                  <option disabled [value]="''">Save as </option>
+                                  <option value="open">Open</option>
+                                  <option value="merge">Merge</option>
+                                </select>
+                              </div>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <footer class="card-footer" style="padding: 20px;">
+        <div class="buttons" style="width: 100%; display: flex; justify-content: flex-end;">
+            <button [disabled]="formNewPullRequest.invalid" type="submit" class="button is-success" (click)="createPullRequest()" >Create pull request</button>
+        </div>
+    </footer>
+
+
+
+</div>
+
+<div class="modal" [ngClass]="{'is-active': showNoticeDialog}">
+    <app-notice-dialog (modalEvent)="receiveNoticeDialogEvent($event)" [title]="titleDialog" [body]="bodyDialog">
+    </app-notice-dialog>
+</div>
