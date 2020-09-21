@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommitsService } from '../../apis/commits.service';
+import { CookiesManagerService } from '../../services/cookies-manager.service';
+import { ApiService } from '../../apis/api.service';
 
 @Component({
   selector: 'app-branch-detail',
@@ -16,6 +18,8 @@ export class BranchDetailComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private commitsService: CommitsService,
+    private cookiesManagerService: CookiesManagerService,
+    private apiService: ApiService,
   ) {
     this.branchName = this.route.snapshot.paramMap.get('branchName');
 
@@ -32,6 +36,11 @@ export class BranchDetailComponent implements OnInit {
       this.commits = res;
     }, error => {
       console.log(error);
+      if (error.status === 401) {
+        this.apiService.removeToken();
+        this.cookiesManagerService.deleteCookie('login-data');
+        window.location.reload();
+      }
     });
   }
 

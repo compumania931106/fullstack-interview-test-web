@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { CookiesManagerService } from '../../services/cookies-manager.service';
+import { ApiService } from '../../apis/api.service';
 import { BranchesService } from '../../apis/branches.service';
 
 @Component({
@@ -13,6 +14,8 @@ export class BranchesComponent implements OnInit {
   branches: Array<any>;
 
   constructor(
+    private cookiesManagerService: CookiesManagerService,
+    private apiService: ApiService,
     private branchesService: BranchesService,
     private router: Router,
   ) {
@@ -29,6 +32,11 @@ export class BranchesComponent implements OnInit {
       this.branches = res;
     }, error => {
       console.log(error);
+      if (error.status === 401) {
+        this.apiService.removeToken();
+        this.cookiesManagerService.deleteCookie('login-data');
+        window.location.reload();
+      }
     });
   }
 

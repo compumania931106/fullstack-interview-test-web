@@ -29,7 +29,7 @@
                         <div class="field">
                             <label class="label">Password</label>
                             <div class="control">
-                                <input class="input"
+                                <input class="input" (keydown.enter)="login()"
                                     [ngClass]="{'is-danger': formLogin.get('password').hasError('required') && formLogin.get('password').touched}"
                                     type="password" formControlName="password" placeholder="Please enter your password">
                             </div>
@@ -40,6 +40,17 @@
                 </div>
 
             </form>
+
+            <article *ngIf="showErrorDiv" class="message is-danger" style="margin-top: 15px;">
+                <div class="message-header">
+                    <p>Error</p>
+                    <button class="delete" aria-label="delete"
+                        (click)="showErrorDiv = false; formLogin.reset()"></button>
+                </div>
+                <div class="message-body">
+                    {{ errorMessage }}
+                </div>
+            </article>
 
         </div>
 

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PullsService } from '../../apis/pulls.service';
+import { CookiesManagerService } from '../../services/cookies-manager.service';
+import { ApiService } from '../../apis/api.service';
 
 @Component({
   selector: 'app-pulls',
@@ -17,6 +19,8 @@ export class PullsComponent implements OnInit {
 
   constructor(
     private pullsService: PullsService,
+    private cookiesManagerService: CookiesManagerService,
+    private apiService: ApiService,
   ) {
     this.showNoticeDialog = false;
     this.showEnptyMessage = false;
@@ -42,6 +46,12 @@ export class PullsComponent implements OnInit {
 
     }, error => {
       console.log(error);
+
+      if (error.status === 401) {
+        this.apiService.removeToken();
+        this.cookiesManagerService.deleteCookie('login-data');
+        window.location.reload();
+      }
 
       if (error.status === 404) {
         this.titleDialog = 'Whitout Pull Requests';
@@ -70,6 +80,11 @@ export class PullsComponent implements OnInit {
 
     }, error1 => {
       console.log(error1);
+      if (error1.status === 401) {
+        this.apiService.removeToken();
+        this.cookiesManagerService.deleteCookie('login-data');
+        window.location.reload();
+      }
     });
   }
 

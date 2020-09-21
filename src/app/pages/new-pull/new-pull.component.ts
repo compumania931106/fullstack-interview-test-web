@@ -3,6 +3,8 @@ import { BranchesService } from '../../apis/branches.service';
 import { PullsService } from '../../apis/pulls.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
+import { CookiesManagerService } from '../../services/cookies-manager.service';
+import { ApiService } from '../../apis/api.service';
 
 @Component({
   selector: 'app-new-pull',
@@ -28,6 +30,8 @@ export class NewPullComponent implements OnInit {
   showErrorBody: boolean;
 
   constructor(
+    private cookiesManagerService: CookiesManagerService,
+    private apiService: ApiService,
     private branchesService: BranchesService,
     private pullsService: PullsService,
     private formBuilder: FormBuilder,
@@ -81,13 +85,6 @@ export class NewPullComponent implements OnInit {
 
         this.showFormComplete = true;
 
-        // if (res.status === 'ahead') {
-        //   // I can create pull request
-        //   this.showFormComplete = true;
-        // } else {
-        //   this.showFormComplete = false;
-        // }
-
       }, error1 => {
         console.log(error1);
       });
@@ -121,6 +118,16 @@ export class NewPullComponent implements OnInit {
 
           }, error2 => {
             console.log(error2);
+
+            if (error2.status === 401) {
+              this.apiService.removeToken();
+              this.cookiesManagerService.deleteCookie('login-data');
+              window.location.reload();
+            }
+
+            this.titleDialog = 'Pull Request could not be created';
+            this.bodyDialog = `Pull Request is not mergeable`;
+            this.showNoticeDialog = true;
           });
 
         } else {
@@ -134,10 +141,17 @@ export class NewPullComponent implements OnInit {
       }, error1 => {
         // Show the dialog of error for creating Pull Request
         console.log(error1);
+
+        if (error1.status === 401) {
+          this.apiService.removeToken();
+          this.cookiesManagerService.deleteCookie('login-data');
+          window.location.reload();
+        }
+
         this.titleDialog = 'Pull Request could not be created';
         this.bodyDialog = `Validation failed with errors: `;
         error1.error.errors.forEach(element => {
-          this.bodyDialog += `${ element.message }`;
+          this.bodyDialog += `${element.message}`;
         });
         this.showNoticeDialog = true;
       });

@@ -14,13 +14,17 @@ export class LoginFormDialogComponent implements OnInit {
   @Output() modalEvent = new EventEmitter<boolean>();
 
   formLogin: FormGroup;
+  errorMessage: string;
+  showErrorDiv: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private apiService: ApiService,
     private cookiesManagerService: CookiesManagerService,
-  ) { }
+  ) {
+    this.showErrorDiv = false;
+  }
 
   ngOnInit(): void {
     this.loadForm();
@@ -41,7 +45,7 @@ export class LoginFormDialogComponent implements OnInit {
       };
 
       this.authService.login(credentials).subscribe(res => {
-        console.log(res);
+        // console.log(res);
 
         this.apiService.setToken(res.token);
         this.cookiesManagerService.saveData(res, 'login-data');
@@ -49,7 +53,15 @@ export class LoginFormDialogComponent implements OnInit {
         this.closeModalFunction({login: true});
 
       }, error => {
-        console.log(error);
+        // console.log(error);
+
+        if (error.status === 401 || error.status === 404) {
+          this.errorMessage = 'The access data is not valid.',
+          this.showErrorDiv = true;
+        } else {
+          this.errorMessage = 'An unexpected error has occurred, please try again later.',
+          this.showErrorDiv = true;
+        }
       });
     }
   }
