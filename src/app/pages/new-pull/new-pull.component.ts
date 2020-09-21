@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BranchesService } from '../../apis/branches.service';
 import { PullsService } from '../../apis/pulls.service';
-import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 
 @Component({
@@ -79,12 +79,14 @@ export class NewPullComponent implements OnInit {
       this.branchesService.compareTwoBranches(this.baseBranch, this.headBranch).subscribe(res => {
         console.log(res);
 
-        if (res.status === 'ahead') {
-          // I can create pull request
-          this.showFormComplete = true;
-        } else {
-          this.showFormComplete = false;
-        }
+        this.showFormComplete = true;
+
+        // if (res.status === 'ahead') {
+        //   // I can create pull request
+        //   this.showFormComplete = true;
+        // } else {
+        //   this.showFormComplete = false;
+        // }
 
       }, error1 => {
         console.log(error1);
@@ -112,6 +114,11 @@ export class NewPullComponent implements OnInit {
 
           this.pullsService.mergePullRequest(res1.number).subscribe(res2 => {
             console.log(res2);
+
+            this.titleDialog = 'Pull request created successfully';
+            this.bodyDialog = `he pull request with the number ${res1.number}, has been created and merged successfully`;
+            this.showNoticeDialog = true;
+
           }, error2 => {
             console.log(error2);
           });
@@ -125,7 +132,14 @@ export class NewPullComponent implements OnInit {
 
 
       }, error1 => {
+        // Show the dialog of error for creating Pull Request
         console.log(error1);
+        this.titleDialog = 'Pull Request could not be created';
+        this.bodyDialog = `Validation failed with errors: `;
+        error1.error.errors.forEach(element => {
+          this.bodyDialog += `${ element.message }`;
+        });
+        this.showNoticeDialog = true;
       });
     }
 

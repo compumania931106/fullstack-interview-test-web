@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 
 // components
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -16,6 +17,7 @@ import { CommitDetailComponent } from './pages/commit-detail/commit-detail.compo
 import { PullsComponent } from './pages/pulls/pulls.component';
 import { NoticeDialogComponent } from './dialogs/notice-dialog/notice-dialog.component';
 import { NewPullComponent } from './pages/new-pull/new-pull.component';
+import { LoginFormDialogComponent } from './dialogs/login-form-dialog/login-form-dialog.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { NewPullComponent } from './pages/new-pull/new-pull.component';
     CommitDetailComponent,
     PullsComponent,
     NoticeDialogComponent,
-    NewPullComponent
+    NewPullComponent,
+    LoginFormDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,9 @@ import { NewPullComponent } from './pages/new-pull/new-pull.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    CookieService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

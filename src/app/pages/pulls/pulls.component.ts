@@ -63,16 +63,14 @@ export class PullsComponent implements OnInit {
       state: 'closed'
     };
 
-    this.pullsService.updatePullRequest(pull.number, updatedPullRequest).subscribe(res1 => {
+    this.pullsService.updatePullRequest(pull.numberOfPull, updatedPullRequest).subscribe(res1 => {
       console.log(res1);
 
       this.getAllPulls();
 
     }, error1 => {
-      console.log(error1)
+      console.log(error1);
     });
-
-    
   }
 
 }

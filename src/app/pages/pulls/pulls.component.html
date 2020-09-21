@@ -1,5 +1,5 @@
 <div class="card" style="margin-top: 20px;">
-    <header class="card-header" style="display: flex; justify-content: space-between;">
+    <header class="card-header" style="display: flex; justify-content: space-between; padding: 10px;">
         <div>
             <span class="card-header-title" style="font-size: 1.15rem;">
                 Pull Requests
@@ -21,18 +21,24 @@
 
         <div class="content" *ngIf="! showEnptyMessage">
 
-            <div *ngFor="let pull of pulls" style="display: flex; justify-content: space-between;">
-                <div>
-                    <span>Author: {{ pull.user.login }}</span> <br>
-                    <span>Title: {{ pull.title }}</span> <br>
-                    <span>Description: {{ pull.body }}</span> <br>
-                    <span>State: {{ pull.state }}</span> <br>
+            <div *ngFor="let pull of pulls" >
+                <div style="display: flex; justify-content: space-between;">
+                    <div>
+                        <span ><b>Author</b>: {{ pull.author }}</span> <br>
+                        <div style="height: 25px;"></div>
+                        <span><b>Title</b>: {{ pull.title }}</span> <br>
+                        <span><b>Description</b>: {{ pull.body }}</span> <br>
+                        <span><b>State</b>: {{ pull.state === 'closed' ? ( pull.mergedAt !== null ? 'merged' : 'closet' ) : 'open' }}</span> <br>
+                    </div>
+                    <div *ngIf="pull.state === 'open'">
+                        <div class="buttons">
+                            <button (click)="updatePullRequest(pull)" class="button is-danger">Close pull request</button>
+                          </div>
+                    </div>
                 </div>
-                <div *ngIf="pull.state === 'open'">
-                    <div class="buttons">
-                        <button (click)="updatePullRequest(pull)" class="button is-danger">Close pull request</button>
-                      </div>
-                </div>
+               
+
+                <div style="width: 100%; height: 2px; background-color: darkgray; margin: 10px 0px 10px 0px;"></div>
 
             </div>
 

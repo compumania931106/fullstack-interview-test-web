@@ -19,6 +19,19 @@ export class ApiService {
     });
   }
 
+  setToken(token: string) {
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    });
+  }
+
+  removeToken() {
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+  }
+
   get(endpoint: string, params?: any): any {
     const options = { headers: this.headers };
     if (params) {
