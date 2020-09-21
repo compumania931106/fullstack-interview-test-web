@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { BranchesService } from '../../apis/branches.service';
 
 @Component({
@@ -12,6 +14,7 @@ export class BranchesComponent implements OnInit {
 
   constructor(
     private branchesService: BranchesService,
+    private router: Router,
   ) {
     this.branches = [];
   }
@@ -27,6 +30,10 @@ export class BranchesComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+
+  showBranchDetail(branch: any) {
+    this.router.navigate([`/branches/${branch.name}/commits`]);
   }
 
 }

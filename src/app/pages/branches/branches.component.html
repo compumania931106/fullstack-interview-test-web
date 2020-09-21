@@ -18,7 +18,7 @@
       <a>Forks</a>
     </p> -->
 
-    <a class="panel-block is-active" *ngFor="let branch of branches">
+    <a class="panel-block is-active" *ngFor="let branch of branches" (click)="showBranchDetail(branch)">
         <div style="width: 100%; display: flex; justify-content: space-between;">
             <div>
                 <span class="panel-icon">
@@ -27,7 +27,7 @@
                 {{ branch.name }}
             </div>
             <div>
-                <i class="fa fa-eye"></i>
+                show commits
             </div>
         </div>
 

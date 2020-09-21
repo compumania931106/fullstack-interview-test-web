@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './pages/home/home.component';
 import { BranchesComponent } from './pages/branches/branches.component';
+import { BranchDetailComponent } from './pages/branch-detail/branch-detail.component';
+import { CommitDetailComponent } from './pages/commit-detail/commit-detail.component';
 
 const routes: Routes = [
   {
@@ -17,6 +19,14 @@ const routes: Routes = [
   {
     path: 'branches',
     component: BranchesComponent,
+  },
+  {
+    path: 'branches/:branchName/commits',
+    component: BranchDetailComponent,
+  },
+  {
+    path: 'branches/:branchName/commits/:ref',
+    component: CommitDetailComponent,
   },
 ];
 

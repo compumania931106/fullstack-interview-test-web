@@ -10,13 +10,17 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 // pages
 import { HomeComponent } from './pages/home/home.component';
 import { BranchesComponent } from './pages/branches/branches.component';
+import { BranchDetailComponent } from './pages/branch-detail/branch-detail.component';
+import { CommitDetailComponent } from './pages/commit-detail/commit-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     HomeComponent,
-    BranchesComponent
+    BranchesComponent,
+    BranchDetailComponent,
+    CommitDetailComponent
   ],
   imports: [
     BrowserModule,

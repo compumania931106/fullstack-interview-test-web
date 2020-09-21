@@ -1,0 +1,44 @@
+<div class="card" style="margin-top: 20px;">
+    <header class="card-header">
+        <span class="card-header-title" style="font-size: 1.15rem;">
+            Commits from branch {{ branchName }}
+        </span>
+    </header>
+    <div class="card-content">
+        <div class="content">
+
+            <div class="card" *ngFor="let commit of commits" >
+                <div class="card-content">
+                    <div style="display: flex; justify-content: space-between;">
+                        <div class="media">
+                            <div class="media-left">
+                                <figure class="image is-48x48">
+                                  <img *ngIf="commit.author" [src]="commit.author.avatar_url" alt="Placeholder image">
+                                  <img *ngIf="! commit.author" src="./assets/avatar-github.png" alt="Placeholder image">
+                                </figure>
+                              </div>
+                            <div class="media-content">
+                                <p class="title is-4">{{ commit.commit.author.name }}</p>
+                                <p *ngIf="commit.author"  class="subtitle is-6">@{{ commit.author.login }}</p>
+                                <p *ngIf="! commit.author"  class="subtitle is-6">{{ commit.commit.author.email }}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="buttons">
+                                <button (click)="showCommitDetail(commit)" class="button is-link">Show Details</button>
+                              </div>
+                        </div>
+                    </div>
+                    
+
+                    <div class="content">
+                        {{ commit.commit.message }}
+                        <br>
+                        <span>{{ commit.commit.author.date | date }}</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

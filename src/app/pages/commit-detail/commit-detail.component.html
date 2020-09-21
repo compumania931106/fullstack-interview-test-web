@@ -1,0 +1,20 @@
+<div class="card" style="margin-top: 20px;" *ngIf="commit">
+    <header class="card-header">
+        <span class="card-header-title" style="font-size: 1.15rem;">
+            Commit {{ ref }}
+        </span>
+    </header>
+    <div class="card-content">
+        <div class="content" style="display: flex; justify-content: space-between;">
+            <div>
+                <span><b>Message</b>: {{ commit.commit.message }}</span> <br>
+                <span><b>files changed</b>: {{ commit.files.length }}</span> <br>
+                <span><b>Author</b>: {{ commit.commit.author.name }}</span> <br>
+                <span><b>Email</b>: {{ commit.commit.author.email }}</span> <br>
+            </div>
+            <div>
+                <span>{{ commit.commit.author.date | date }}</span>
+            </div>
+        </div>
+    </div>
+</div>
