@@ -62,7 +62,7 @@ export class NewPullComponent implements OnInit {
 
   getAllBranches() {
     this.branchesService.getBranches().subscribe(res => {
-      console.log(res);
+      // console.log(res);
       this.branches = res;
     }, error1 => {
       console.log(error1);
@@ -81,7 +81,7 @@ export class NewPullComponent implements OnInit {
   compareBranches(event: any) {
     if (this.baseBranch !== '' && this.headBranch !== '') {
       this.branchesService.compareTwoBranches(this.baseBranch, this.headBranch).subscribe(res => {
-        console.log(res);
+        // console.log(res);
 
         this.showFormComplete = true;
 
@@ -105,12 +105,12 @@ export class NewPullComponent implements OnInit {
       console.log(dataForCreationOfPullRequest);
 
       this.pullsService.createPullRequest(dataForCreationOfPullRequest).subscribe(res1 => {
-        console.log(res1);
+        // console.log(res1);
 
         if (this.formNewPullRequest.get('saveAs').value === 'merge') {
 
           this.pullsService.mergePullRequest(res1.number).subscribe(res2 => {
-            console.log(res2);
+            // console.log(res2);
 
             this.titleDialog = 'Pull request created successfully';
             this.bodyDialog = `he pull request with the number ${res1.number}, has been created and merged successfully`;

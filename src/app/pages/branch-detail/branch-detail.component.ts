@@ -32,7 +32,7 @@ export class BranchDetailComponent implements OnInit {
 
   getCommitsByBranch() {
     this.commitsService.getCommitsByBranch(this.branchName).subscribe(res => {
-      console.log(res);
+      // console.log(res);
       this.commits = res;
     }, error => {
       console.log(error);

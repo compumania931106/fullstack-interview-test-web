@@ -29,7 +29,7 @@ export class CommitDetailComponent implements OnInit {
 
   getCommitDetail() {
     this.commitsService.getCommitDetail(this.ref).subscribe(res => {
-      console.log(res);
+      // console.log(res);
       this.commit = res;
     }, error => {
       console.log(error);

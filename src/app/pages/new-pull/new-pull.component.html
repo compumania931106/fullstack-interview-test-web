@@ -20,7 +20,7 @@
                 <div class="column is-half">
                     <div class="select" style="width: 100%;">
                         <select style="width: 100%;" [(ngModel)]="headBranch" (ngModelChange)="compareBranches($event)">
-                            <option disabled [value]="''">Select origin branch</option>
+                            <option disabled [value]="''">Select head branch</option>
                             <option class="selected-style" *ngFor="let branch of branchesForOrigin"
                                 [value]="branch.name">
                                 {{ branch.name }}</option>
@@ -40,7 +40,7 @@
                                 <div class="control">
                                     <input class="input"
                                         [ngClass]="{'is-danger': formNewPullRequest.get('title').hasError('required') && formNewPullRequest.get('title').touched}"
-                                        type="text" formControlName="title" placeholder="Text input">
+                                        type="text" formControlName="title" placeholder="Title">
                                 </div>
                                 <p *ngIf="formNewPullRequest.get('title').hasError('required') && formNewPullRequest.get('title').touched"
                                     class="help is-danger">This field is required</p>
@@ -55,7 +55,7 @@
                                 <div class="control is-danger">
                                     <textarea class="textarea"
                                         [ngClass]="{'is-danger-textarea': formNewPullRequest.get('body').hasError('required') && formNewPullRequest.get('body').touched}"
-                                        formControlName="body" placeholder="Textarea"></textarea>
+                                        formControlName="body" placeholder="Body"></textarea>
                                 </div>
                                 <p *ngIf="formNewPullRequest.get('body').hasError('required') && formNewPullRequest.get('body').touched"
                                     class="help is-danger">This field is required</p>

@@ -33,7 +33,7 @@ export class PullsComponent implements OnInit {
 
   getAllPulls() {
     this.pullsService.getAllPulls().subscribe(res => {
-      console.log(res);
+      // console.log(res);
       this.pulls = res;
 
       if (this.pulls.length === 0) {
@@ -74,7 +74,7 @@ export class PullsComponent implements OnInit {
     };
 
     this.pullsService.updatePullRequest(pull.numberOfPull, updatedPullRequest).subscribe(res1 => {
-      console.log(res1);
+      // console.log(res1);
 
       this.getAllPulls();
 
